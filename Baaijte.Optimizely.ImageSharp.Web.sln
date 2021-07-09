@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31423.177
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{41417A60-8270-44EF-82F5-1272D8690A2D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Props", "_Props", "{584458AA-FC2F-464C-9712-B7A2964D3EB2}"
+	ProjectSection(SolutionItems) = preProject
+		dependencies.props = dependencies.props
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{59365865-F745-4363-942D-C772CABB01B2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlloyMvcTemplates", "sample\Alloy\AlloyMvcTemplates.csproj", "{9F893995-E88A-466E-AA89-D0F21E167396}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Baaijte.Optimizely.ImageSharp.Web", "src\Baaijte.Optimizely.ImageSharp.Web\Baaijte.Optimizely.ImageSharp.Web.csproj", "{C82FC6B0-530B-4505-891C-F1741C17F3FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F893995-E88A-466E-AA89-D0F21E167396}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F893995-E88A-466E-AA89-D0F21E167396}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F893995-E88A-466E-AA89-D0F21E167396}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F893995-E88A-466E-AA89-D0F21E167396}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C82FC6B0-530B-4505-891C-F1741C17F3FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C82FC6B0-530B-4505-891C-F1741C17F3FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C82FC6B0-530B-4505-891C-F1741C17F3FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C82FC6B0-530B-4505-891C-F1741C17F3FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9F893995-E88A-466E-AA89-D0F21E167396} = {41417A60-8270-44EF-82F5-1272D8690A2D}
+		{C82FC6B0-530B-4505-891C-F1741C17F3FB} = {59365865-F745-4363-942D-C772CABB01B2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {96D0BE33-3BF8-4BD5-BC44-8796612B2116}
+	EndGlobalSection
+EndGlobal
