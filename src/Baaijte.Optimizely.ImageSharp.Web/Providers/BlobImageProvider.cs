@@ -62,8 +62,6 @@ namespace Baaijte.Optimizely.ImageSharp.Web.Providers
 
             if (media != null && media.BinaryData != null)
             {
-                //IFileInfo fileInfo = blob.BinaryData.AsFileInfoAsync().Result;
-                //ImageMetadata metadata = new(fileInfo.LastModified.UtcDateTime, fileInfo.Length);
                 return Task.FromResult<IImageResolver>(new BlobImageResolver(media.BinaryData));
             }
             return Task.FromResult<IImageResolver>(null);

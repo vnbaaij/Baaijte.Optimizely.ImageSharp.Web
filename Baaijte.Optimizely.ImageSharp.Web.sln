@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Props", "_Props", "{584458AA-FC2F-464C-9712-B7A2964D3EB2}"
 	ProjectSection(SolutionItems) = preProject
 		dependencies.props = dependencies.props
+		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
