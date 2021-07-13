@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Baaijte.Optimizely.ImageSharp.Web</id>
+    <version>$version$</version>
+    <title></title>
+    <authors>vnbaaij</authors>
+    <owners>Baaijte</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">Apache-2.0</license>
+    <projectUrl>https://github.com/vnbaaij/Baaijte.Optimizely.ImageSharp.Web</projectUrl>
+    <description>Use SixLabors.ImageSharp.Web in Optimizely</description>
+    <releaseNotes>Supports Episerver 12 and higher</releaseNotes>
+    <copyright>Copyright 2021, Vincent Baaij</copyright>
+    <tags>Optimizely ImageSharp Blob Cache</tags>
+    <dependencies>
+      <group targetFramework="net5.0">
+          <dependency id="SixLabors.ImageSharp" version="1.0.3" />
+          <dependency id="SixLabors.ImageSharp.Web" version="1.0.3" />
+          <dependency id="EPiServer.CMS.Core" version="[12.0.0, 13.0.0)" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Debug\net5.0\Baaijte.Optimizely.ImageSharp.Web.dll" target="lib\net5.0\Baaijte.Optimizely.ImageSharp.Web.dll" />
+  </files>
+</package>

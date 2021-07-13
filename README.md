@@ -38,4 +38,4 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 ```
 ***DO NOT*** add other `SixLabors.ImageSharp.Web` settings!!
 
-Also add `using Baaijte.Optimizely.ImageSharp.Web;` at the top of your `Startup.cs` =file if it was not automatically added
+Also add `using Baaijte.Optimizely.ImageSharp.Web;` at the top of your `Startup.cs` file if it was not automatically added.

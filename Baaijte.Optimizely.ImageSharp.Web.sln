@@ -7,7 +7,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{4141
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Props", "_Props", "{584458AA-FC2F-464C-9712-B7A2964D3EB2}"
 	ProjectSection(SolutionItems) = preProject
+		src\Baaijte.Optimizely.ImageSharp.Web\Baaijte.Optimizely.ImageSharp.Web.nuspec = src\Baaijte.Optimizely.ImageSharp.Web\Baaijte.Optimizely.ImageSharp.Web.nuspec
+		build\build-package.debug.ps1 = build\build-package.debug.ps1
+		build\build-package.release.ps1 = build\build-package.release.ps1
 		dependencies.props = dependencies.props
+		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject

@@ -1,4 +1,6 @@
 ﻿@using AlloyTemplates
+@using Baaijte.Optimizely.ImageSharp.Web
+
 @model PageViewModel<ProductPage>
 
 @{ Layout = "~/Views/Shared/Layouts/_TwoPlusOne.cshtml"; }
@@ -15,7 +17,7 @@
 @section RelatedContent
 {
     <div @Html.EditAttributes(x => x.CurrentPage.PageImage)>
-        <img src="@Url.ContentUrl(Model.CurrentPage.PageImage)?width=75"/>
+        <img src="@Html.ProcessImage(Model.CurrentPage.PageImage).Resize(125,200,SixLabors.ImageSharp.Processing.ResizeMode.Stretch)"/>
     </div>
 
     <div class="block colorBox @string.Join(" ", @Model.CurrentPage.GetThemeCssClassNames())">
