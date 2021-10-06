@@ -2,11 +2,12 @@
   <Import Project="..\..\dependencies.props" />
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <RuntimeFrameworkVersion>5.0.10</RuntimeFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="$(BuildBundlerMinifier)" />
     <PackageReference Include="Wangkanai.Detection" Version="2.0.1" />
-    <PackageReference Include="EPiServer.CMS" Version="$(CmsUIVersion)" />
+    <PackageReference Include="EPiServer.CMS" Version="12.0.2" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\LanguageFiles\**\*" />

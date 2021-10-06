@@ -1,18 +1,14 @@
-using AlloyTemplates.Models;
-using EPiServer.Core;
-using EPiServer.ServiceLocation;
-using EPiServer.Shell.Security;
-using EPiServer.Web.Routing;
-using System.Collections.Generic;
-using System.Linq;
-using EPiServer.Security;
-using EPiServer.DataAbstraction;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using AlloyMvcTemplates.Infrastructure;
-using System.Threading.Tasks;
+using AlloyTemplates.Models;
 using EPiServer.Authorization;
-using EPiServer.Framework.Security;
+using EPiServer.Core;
+using EPiServer.DataAbstraction;
+using EPiServer.Security;
+using EPiServer.Shell.Security;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AlloyTemplates.Controllers
 {
@@ -56,11 +52,11 @@ namespace AlloyTemplates.Controllers
                 if (result.Status == UIUserCreateStatus.Success)
                 {
                     await _roleProvider.CreateRoleAsync(AdminRoleName);
-                    await _roleProvider.AddUserToRolesAsync(result.User.Username, new string[] { AdminRoleName});
+                    await _roleProvider.AddUserToRolesAsync(result.User.Username, new string[] { AdminRoleName });
 
                     AdministratorRegistrationPageMiddleware.IsEnabled = false;
                     SetFullAccessToWebAdmin();
-                    var resFromSignIn = await _signInManager.SignInAsync(_userProvider.Name, model.Username, model.Password);
+                    var resFromSignIn = await _signInManager.SignInAsync(model.Username, model.Password);
                     if (resFromSignIn)
                     {
                         return Redirect("/");
