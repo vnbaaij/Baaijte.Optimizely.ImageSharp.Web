@@ -39,3 +39,24 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 ***DO NOT*** add other `SixLabors.ImageSharp.Web` settings!!
 
 Also add `using Baaijte.Optimizely.ImageSharp.Web;` at the top of your `Startup.cs` file if it was not automatically added.
+
+### Configuration for use with DXP
+``` c#
+public void ConfigureServices(IServiceCollection services) {
+    services.AddImageSharp()
+        .Configure<AzureBlobStorageCacheOptions>(options =>
+        {
+            options.ConnectionString = {YOUR AZURE BLOBS CONNECTIONSTRING};
+            options.ContainerName = {YOUR CONTAINER NAME};
+        })
+        .ClearProviders()
+        .AddProvider<BlobImageProvider>()
+        .SetCache<AzureBlobStorageCache>();
+}
+
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+
+    // Add the image processing middleware.
+    app.UseBaaijteOptimizelyImageSharp();
+}
+```
