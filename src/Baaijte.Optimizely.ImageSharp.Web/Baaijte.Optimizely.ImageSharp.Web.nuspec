@@ -21,7 +21,4 @@
       </group>
     </dependencies>
   </metadata>
-  <files>
-    <file src="bin\Debug\net5.0\Baaijte.Optimizely.ImageSharp.Web.dll" target="lib\net5.0\Baaijte.Optimizely.ImageSharp.Web.dll" />
-  </files>
 </package>
