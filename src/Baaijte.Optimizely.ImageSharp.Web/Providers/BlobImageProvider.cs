@@ -75,6 +75,9 @@ namespace Baaijte.Optimizely.ImageSharp.Web.Providers
             if (context.Request.Path.StartsWithSegments("/globalassets", StringComparison.OrdinalIgnoreCase))
                 return true;
 
+            if (context.Request.Path.StartsWithSegments("/siteassets", StringComparison.OrdinalIgnoreCase))
+                return true;
+
             return false;
         }
     }
