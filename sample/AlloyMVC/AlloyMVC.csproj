@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="EPiServer.CMS" Version="12.3.2" />
+		<PackageReference Include="EpiServer.Framework" Version="12.4.2" />
+		<PackageReference Include="EPiServer.Hosting" Version="12.4.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.3" />
+		<PackageReference Include="Wangkanai.Detection" Version="2.0.1" />
+		<!-- Extra top level dependencies needed to force CMS 6 compatible version of CMS Core -->
+		<PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.4.2" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="6.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\Translations\**\*" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\src\Baaijte.Optimizely.ImageSharp.Web\Baaijte.Optimizely.ImageSharp.Web.csproj" />
+	</ItemGroup>
+</Project>
