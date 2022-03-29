@@ -30,7 +30,7 @@
 	<PackageReference Include="EpiServer.Framework" Version="12.4.2" />
 	<PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.4.2" />
 	<PackageReference Include="SixLabors.ImageSharp" Version="2.1.0" />
-	<PackageReference Include="SixLabors.ImageSharp.Web" Version="1.0.5" />
+	<PackageReference Include="SixLabors.ImageSharp.Web" Version="2.0.0-alpha.0.23" />
   </ItemGroup>
 
 </Project>

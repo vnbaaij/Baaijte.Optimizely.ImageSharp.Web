@@ -1,22 +1,19 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-
-using EPiServer;
+﻿using EPiServer;
 using EPiServer.Core;
 using EPiServer.Framework.Blobs;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
-
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
-
 using SixLabors.ImageSharp.Web;
 using SixLabors.ImageSharp.Web.Caching;
 using SixLabors.ImageSharp.Web.Middleware;
 using SixLabors.ImageSharp.Web.Resolvers;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Baaijte.Optimizely.ImageSharp.Web.Caching
 {
@@ -74,7 +71,7 @@ namespace Baaijte.Optimizely.ImageSharp.Web.Caching
             cacheRootPath = Path.GetFullPath(Path.Combine(environment.ContentRootPath, this.cacheOptions.CacheFolder));
             //fileProvider = new PhysicalFileProvider(cacheRootPath);
             this.options = options.Value;
-            cachedNameLength = (int)this.options.CachedNameLength;
+            cachedNameLength = (int)this.options.CacheHashLength;
             this.formatUtilities = formatUtilities;
         }
 

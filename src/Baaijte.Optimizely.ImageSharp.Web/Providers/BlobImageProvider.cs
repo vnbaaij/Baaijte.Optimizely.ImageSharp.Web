@@ -1,19 +1,15 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using Baaijte.Optimizely.ImageSharp.Web.Resolvers;
-
+﻿using Baaijte.Optimizely.ImageSharp.Web.Resolvers;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.Web.Routing;
-
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
-
 using SixLabors.ImageSharp.Web;
 using SixLabors.ImageSharp.Web.Providers;
 using SixLabors.ImageSharp.Web.Resolvers;
+using System;
+using System.Threading.Tasks;
 
 namespace Baaijte.Optimizely.ImageSharp.Web.Providers
 {
@@ -51,7 +47,7 @@ namespace Baaijte.Optimizely.ImageSharp.Web.Providers
         }
 
         /// <inheritdoc/>
-        public bool IsValidRequest(HttpContext context) => _formatUtilities.GetExtensionFromUri(context.Request.GetDisplayUrl()) != null;
+        public bool IsValidRequest(HttpContext context) => _formatUtilities.TryGetExtensionFromUri(context.Request.GetDisplayUrl(), out _);
 
         /// <inheritdoc/>
         public Task<IImageResolver> GetAsync(HttpContext context)
