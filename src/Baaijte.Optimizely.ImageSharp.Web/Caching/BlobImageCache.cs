@@ -30,7 +30,7 @@ namespace Baaijte.Optimizely.ImageSharp.Web.Caching
         /// <summary>
         /// The length of the filename to use (minus the extension) when storing images in the image cache.
         /// </summary>
-        private readonly int cachedNameLength;
+        private readonly int cacheHashLength;
 
         /// <summary>
         /// The file provider abstraction.
@@ -71,7 +71,7 @@ namespace Baaijte.Optimizely.ImageSharp.Web.Caching
             cacheRootPath = Path.GetFullPath(Path.Combine(environment.ContentRootPath, this.cacheOptions.CacheFolder));
             //fileProvider = new PhysicalFileProvider(cacheRootPath);
             this.options = options.Value;
-            cachedNameLength = (int)this.options.CacheHashLength;
+            cacheHashLength = (int)this.options.CacheHashLength;
             this.formatUtilities = formatUtilities;
         }
 

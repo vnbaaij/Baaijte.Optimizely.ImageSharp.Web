@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
-    <CmsCoreVersion>12.4.2</CmsCoreVersion>
-    <CmsUIVersion>12.4.2-*</CmsUIVersion>
+    <CmsCoreVersion>12.5.0</CmsCoreVersion>
+    <CmsUIVersion>12.5.0-*</CmsUIVersion>
     <TelemetryVersion>2.0.0-pre-020046</TelemetryVersion>
     <CommerceCoreVersion>14.1.3</CommerceCoreVersion>
     <CommerceTrackingeVersion>14.1.3</CommerceTrackingeVersion>

@@ -1,22 +1,22 @@
-## License
+### License
   
 - Baaijte.Optimizely.ImageSharp.Web is licensed under the [Apache License, Version 2.0](https://opensource.org/licenses/Apache-2.0)  
 - ***This package is supported in a best effort sense***
 
  ***Note*** 
- As of version 2.0.0 this package targets .NET6.0 and Optimizely.CMS.Core version 12.4.2 or higher
+ As of version 2.0.0 this package targets .NET6.0 and Optimizely.CMS.Core version 12.5.0 or higher
 
 ### Installation
   
 Baaijte.OptimizelyImageSharp.Web is installed via the [Optimizely NuGet feed](https://nuget.episerver.com/package/?id=Baaijte.Optimizely.ImageSharp.Web) 
 
-# [Package Manager](#tab/tabid-1)
+#### [Package Manager](#tab/tabid-1)
 
 ```bash
 PM > Install-Package Baaijte.Optimizely.ImageSharp.Web -Version VERSION_NUMBER
 ```
 
-# [.NET CLI](#tab/tabid-2)
+#### [.NET CLI](#tab/tabid-2)
 
 ```
 dotnet add package Baaijte.Optimizely.ImageSharp.Web --version VERSION_NUMBER
