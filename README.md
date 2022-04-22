@@ -49,8 +49,8 @@ public void ConfigureServices(IServiceCollection services) {
     services.AddImageSharp()
         .Configure<AzureBlobStorageCacheOptions>(options =>
         {
-            options.ConnectionString = {YOUR AZURE BLOBS CONNECTIONSTRING};
-            options.ContainerName = {YOUR CONTAINER NAME};
+            options.ConnectionString = _configuration.GetConnectionString("EPiServerAzureBlobs");
+            options.ContainerName = "mysitemedia";
         })
         .ClearProviders()
         .AddProvider<BlobImageProvider>()
