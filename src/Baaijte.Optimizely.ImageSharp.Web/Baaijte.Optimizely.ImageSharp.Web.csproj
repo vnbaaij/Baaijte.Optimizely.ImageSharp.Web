@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\dependencies.props" />
   <PropertyGroup>
-	<TargetFramework>net6.0</TargetFramework>
+	<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
 	<Version>2.0.0</Version>
 	<Author>vnbaaij</Author>
 	<Company>Baaijte</Company>
@@ -24,13 +24,10 @@
 	  <PackagePath>\</PackagePath>
 	</None>
   </ItemGroup>
-
-  <ItemGroup>
-	<PackageReference Include="EPiServer.CMS.Core" Version="12.4.2" />
-	<PackageReference Include="EpiServer.Framework" Version="12.4.2" />
-	<PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.4.2" />
-	<PackageReference Include="SixLabors.ImageSharp" Version="2.1.1" />
-	<PackageReference Include="SixLabors.ImageSharp.Web" Version="2.0.0" />
-  </ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="[12.4.2,13.0.0)" />
+		<PackageReference Include="SixLabors.ImageSharp.Web" Version="[2.0.0,3.0.0)" />
+	</ItemGroup>
 
 </Project>
