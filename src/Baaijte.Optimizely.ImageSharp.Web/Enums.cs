@@ -10,7 +10,7 @@
         //Png8,
         //Tif,
         //Tiff,
-        //WebP,
+        WebP,
         Tga
     }
 
