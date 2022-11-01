@@ -1,8 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
-
-using EPiServer.Framework.Blobs;
-
+using EPiServer.Core;
 using Microsoft.Extensions.FileProviders;
 
 using SixLabors.ImageSharp.Web;
@@ -12,28 +11,29 @@ namespace Baaijte.Optimizely.ImageSharp.Web.Resolvers
 {
     public class BlobImageResolver : IImageResolver
     {
-        private readonly Blob blob;
+        private readonly MediaData media;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BlobImageResolver"/> class.
         /// </summary>
-        /// <param name="blob">The image blob.</param>
+        /// <param name="media">The image.</param>
 
-        public BlobImageResolver(Blob blob)
+        public BlobImageResolver(MediaData media)
         {
-            this.blob = blob;
+            this.media = media;
         }
 
         /// <inheritdoc/>
         public async Task<ImageMetadata> GetMetaDataAsync()
         {
-            IFileInfo fileInfo = await blob.AsFileInfoAsync();
+            DateTimeOffset lastModified = media.Saved;
+            IFileInfo fileInfo = await media.BinaryData.AsFileInfoAsync(lastModified);
 
-            return new(fileInfo.LastModified.UtcDateTime, fileInfo.Length);
+            return new(lastModified.UtcDateTime, fileInfo.Length);
         }
 
         /// <inheritdoc/>
-        public Task<Stream> OpenReadAsync() => Task.FromResult(blob.OpenRead());
+        public Task<Stream> OpenReadAsync() => Task.FromResult(media.BinaryData.OpenRead());
 
     }
 }

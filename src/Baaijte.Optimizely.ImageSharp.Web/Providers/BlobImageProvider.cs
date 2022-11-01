@@ -58,7 +58,7 @@ namespace Baaijte.Optimizely.ImageSharp.Web.Providers
 
             if (media != null && media.BinaryData != null)
             {
-                return Task.FromResult<IImageResolver>(new BlobImageResolver(media.BinaryData));
+                return Task.FromResult<IImageResolver>(new BlobImageResolver(media));
             }
             return Task.FromResult<IImageResolver>(null);
         }
