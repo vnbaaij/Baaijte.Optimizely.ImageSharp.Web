@@ -2,7 +2,7 @@
 	<Import Project="..\..\dependencies.props" />
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
-		<Version>2.1.1</Version>
+		<Version>2.1.2</Version>
 		<Author>vnbaaij</Author>
 		<Company>Baaijte</Company>
 		<Description>Use SixLabors.ImageSharp.Web in Optimizely</Description>
