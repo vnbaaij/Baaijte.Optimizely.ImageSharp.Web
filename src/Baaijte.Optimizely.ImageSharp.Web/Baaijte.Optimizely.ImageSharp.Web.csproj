@@ -32,9 +32,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EPiServer.CMS" Version="12.13.2" />
-		<PackageReference Include="SixLabors.ImageSharp" Version="2.1.4" />
-		<PackageReference Include="SixLabors.ImageSharp.Web" Version="2.0.2" />
+		<PackageReference Include="EPiServer.Framework" Version="12.17.0" />
+		<PackageReference Include="EPiServer.CMS.Core" Version="12.17.0" />
+		<PackageReference Include="EPiServer.CMS" Version="12.22.3" />				
+		<PackageReference Include="EPiServer.ImageLibrary.ImageSharp" Version="2.0.0" />
+		<PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />
+		<PackageReference Include="SixLabors.ImageSharp.Web" Version="3.0.1" />
 	</ItemGroup>
 
 </Project>
