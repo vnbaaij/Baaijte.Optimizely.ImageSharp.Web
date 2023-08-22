@@ -4,8 +4,8 @@
     <id>Baaijte.Optimizely.ImageSharp.Web</id>
     <version>$version$</version>
     <title></title>
-    <authors>ashleyjlive</authors>
-    <owners>ashleyjlive</owners>
+    <authors>vnbaaij</authors>
+    <owners>Baaijte</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">Apache-2.0</license>
     <projectUrl>https://github.com/ashleyjlive/Baaijte.Optimizely.ImageSharp.Web</projectUrl>
