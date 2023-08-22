@@ -1,3 +1,7 @@
+## What's New
+### V2.2.0
+Package now uses SixLabors.ImageSharp 3.0.1 and SixLabors.ImageSharp.Web 3.0.1
+
 ### License
   
 - Baaijte.Optimizely.ImageSharp.Web is licensed under the [Apache License, Version 2.0](https://opensource.org/licenses/Apache-2.0)  
