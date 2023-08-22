@@ -8,7 +8,7 @@
     <owners>Baaijte</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">Apache-2.0</license>
-    <projectUrl>https://github.com/ashleyjlive/Baaijte.Optimizely.ImageSharp.Web</projectUrl>
+    <projectUrl>https://github.com/vnbaaij/Baaijte.Optimizely.ImageSharp.Web</projectUrl>
     <description>Use SixLabors.ImageSharp.Web in Optimizely</description>
     <releaseNotes>Supports Episerver 12 and higher</releaseNotes>
     <copyright>Copyright 2021, Vincent Baaij</copyright>
