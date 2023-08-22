@@ -7,12 +7,12 @@
 		<Company>Baaijte</Company>
 		<Description>Use SixLabors.ImageSharp.Web in Optimizely</Description>
 		<Copyright>2021</Copyright>
-		<PackageProjectUrl>https://github.com/ashleyjlive/Baaijte.Optimizely.ImageSharp.Web</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/ashleyjlive/Baaijte.Optimizely.ImageSharp.Web</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/vnbaaij/Baaijte.Optimizely.ImageSharp.Web</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/vnbaaij/Baaijte.Optimizely.ImageSharp.Web</RepositoryUrl>
 		<PackageTags>ImageSharp Optimizely Episerver</PackageTags>
 		<PackageId />
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-		<Authors>ashleyjlive</Authors>
+		<Authors>vnbaaij</Authors>
 		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryType>git</RepositoryType>
