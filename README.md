@@ -1,4 +1,9 @@
 ## What's New
+
+### V2.2.1
+Package now uses SixLabors.ImageSharp 3.0.2 and SixLabors.ImageSharp.Web 3.0.1.
+Package now also references SixLabors.ImageSharp.Web.Providers.Azure
+
 ### V2.2.0
 Package now uses SixLabors.ImageSharp 3.0.1 and SixLabors.ImageSharp.Web 3.0.1
 
@@ -12,7 +17,7 @@ Package now uses SixLabors.ImageSharp 3.0.1 and SixLabors.ImageSharp.Web 3.0.1
 
 ### Installation
   
-Baaijte.OptimizelyImageSharp.Web is installed via the [Optimizely NuGet feed](https://nuget.episerver.com/package/?id=Baaijte.Optimizely.ImageSharp.Web) 
+Baaijte.OptimizelyImageSharp.Web is installed via the [Optimizely NuGet feed](https://nuget.optimizely.com/package/?id=Baaijte.Optimizely.ImageSharp.Web) 
 
 #### [Package Manager](#tab/tabid-1)
 
