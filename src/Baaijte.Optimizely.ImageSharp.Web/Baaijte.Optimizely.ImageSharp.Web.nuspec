@@ -15,7 +15,7 @@
     <tags>Optimizely ImageSharp Blob Cache</tags>
     <dependencies>
       <group targetFramework="net6.0">
-      <dependency id="SixLabors.ImageSharp" version="3.0.1" />
+      <dependency id="SixLabors.ImageSharp" version="3.0.2" />
       <dependency id="SixLabors.ImageSharp.Web" version="3.0.1" />
       <dependency id="EPiServer.CMS" version="[12.13.0, 13.0.0)" />
       </group>
