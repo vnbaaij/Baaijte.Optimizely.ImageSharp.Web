@@ -1,4 +1,10 @@
 ## What's New
+### V3.0.0
+**Targeting .NET 8** 
+Package now uses:
+SixLabors.ImageSharp Version="3.1.3"
+SixLabors.ImageSharp.Web Version="3.1.1"
+SixLabors.ImageSharp.Web.Providers.Azure Version="3.1.1"
 
 ### V2.2.1
 Package now uses SixLabors.ImageSharp 3.0.2 and SixLabors.ImageSharp.Web 3.0.1.

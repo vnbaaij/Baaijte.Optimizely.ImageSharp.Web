@@ -11,7 +11,7 @@
     <projectUrl>https://github.com/vnbaaij/Baaijte.Optimizely.ImageSharp.Web</projectUrl>
     <description>Use SixLabors.ImageSharp.Web in Optimizely</description>
     <releaseNotes>Supports Episerver 12 and higher</releaseNotes>
-    <copyright>Copyright 2021, Vincent Baaij</copyright>
+    <copyright>Copyright 2024, Vincent Baaij</copyright>
     <tags>Optimizely ImageSharp Blob Cache</tags>
     <dependencies>
       <group targetFramework="net6.0">

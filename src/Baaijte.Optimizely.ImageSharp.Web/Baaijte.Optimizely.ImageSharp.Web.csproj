@@ -2,11 +2,11 @@
 	<Import Project="..\..\dependencies.props" />
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<Version>2.2.2</Version>
+		<Version>3.0.0</Version>
 		<Author>vnbaaij</Author>
 		<Company>Baaijte</Company>
 		<Description>Use SixLabors.ImageSharp.Web in Optimizely</Description>
-		<Copyright>2021</Copyright>
+		<Copyright>2024</Copyright>
 		<PackageProjectUrl>https://github.com/vnbaaij/Baaijte.Optimizely.ImageSharp.Web</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/vnbaaij/Baaijte.Optimizely.ImageSharp.Web</RepositoryUrl>
 		<PackageTags>ImageSharp Optimizely Episerver</PackageTags>
@@ -16,7 +16,7 @@
 		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryType>git</RepositoryType>
-		<PackageReleaseNotes>From version 2.0 this package is targeting .NET 6</PackageReleaseNotes>
+		<PackageReleaseNotes>From version 3.0 this package is targeting .NET 8</PackageReleaseNotes>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="..\..\README.md">
