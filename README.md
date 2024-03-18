@@ -1,6 +1,7 @@
 ## What's New
 ### V3.0.0
 **Targeting .NET 8** 
+
 Package now uses:
 SixLabors.ImageSharp Version="3.1.3"
 SixLabors.ImageSharp.Web Version="3.1.1"
