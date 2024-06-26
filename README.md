@@ -2,9 +2,9 @@
 
 ### V3.0.1
 Package now uses:
-SixLabors.ImageSharp 3.1.4
-SixLabors.ImageSharp.Web 3.1.2
-SixLabors.ImageSharp.Web.Providers.Azure 3.1.2
+- SixLabors.ImageSharp 3.1.4
+- SixLabors.ImageSharp.Web 3.1.2
+- SixLabors.ImageSharp.Web.Providers.Azure 3.1.2
 
 ### V3.0.0
 **Targeting .NET 8** 
