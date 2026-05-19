@@ -65,16 +65,7 @@ namespace Baaijte.Optimizely.ImageSharp.Web.Providers
 
         private bool IsMatch(HttpContext context)
         {
-            if (context.Request.Path.StartsWithSegments("/contentassets", StringComparison.OrdinalIgnoreCase))
-                return true;
-
-            if (context.Request.Path.StartsWithSegments("/globalassets", StringComparison.OrdinalIgnoreCase))
-                return true;
-
-            if (context.Request.Path.StartsWithSegments("/siteassets", StringComparison.OrdinalIgnoreCase))
-                return true;
-
-            return false;
+            return ManagedImageRequestMatcher.IsManagedImageRequest(context);
         }
     }
 }
