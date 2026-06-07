@@ -28,7 +28,7 @@ namespace Baaijte.Optimizely.ImageSharp.Web
 
     public class ImageRequestSigningOptions
     {
-        public bool Enabled { get; set; }
+        public bool? Enabled { get; set; }
 
         public string Salt { get; set; }
     }

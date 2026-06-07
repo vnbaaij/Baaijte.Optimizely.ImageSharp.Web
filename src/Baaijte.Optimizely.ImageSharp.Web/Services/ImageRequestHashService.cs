@@ -35,7 +35,7 @@ namespace Baaijte.Optimizely.ImageSharp.Web.Services
             _options = options;
         }
 
-        public bool IsEnabled => _options.CurrentValue.Enabled;
+        public bool IsEnabled => _options.CurrentValue.Enabled != false;
 
         public bool IsAuthorized(HttpRequest request)
         {
@@ -85,7 +85,7 @@ namespace Baaijte.Optimizely.ImageSharp.Web.Services
 
         private string ComputeHash(string signedRequestTarget)
         {
-            var payload = $"{_options.CurrentValue.Salt}|{signedRequestTarget}";
+            var payload = string.Concat(_options.CurrentValue.Salt, signedRequestTarget);
             var hash = SHA256.HashData(Encoding.UTF8.GetBytes(payload));
 
             return Convert.ToHexString(hash).ToLowerInvariant();

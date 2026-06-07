@@ -1,4 +1,6 @@
-﻿using Baaijte.Optimizely.ImageSharp.Web.Caching;
+﻿using System;
+
+using Baaijte.Optimizely.ImageSharp.Web.Caching;
 using Baaijte.Optimizely.ImageSharp.Web.Providers;
 using Baaijte.Optimizely.ImageSharp.Web.Services;
 
@@ -13,12 +15,26 @@ namespace Baaijte.Optimizely.ImageSharp.Web
 {
     public static class ServiceAndAppExtensions
     {
-        public static void AddBaaijteOptimizelyImageSharp(this IServiceCollection services)
+        public static void AddImageRequestSigning(this IServiceCollection services, ImageRequestSigningOptions options)
         {
+            ArgumentNullException.ThrowIfNull(services);
+
+            ArgumentNullException.ThrowIfNull(options);
+
             services.AddOptions<ImageRequestSigningOptions>()
-                    .Validate(options => !options.Enabled || !string.IsNullOrWhiteSpace(options.Salt), "Image request signing requires a salt when enabled.");
+                    .Configure(configure =>
+                    {
+                        configure.Enabled = options.Enabled;
+                        configure.Salt = options.Salt;
+                    })
+                    .Validate(option => option.Enabled == false || !string.IsNullOrWhiteSpace(option.Salt), "Image request signing requires a salt when enabled.");
 
             services.AddSingleton<ImageRequestHashService>();
+        }
+
+        public static void AddBaaijteOptimizelyImageSharp(this IServiceCollection services)
+        {
+            //services.AddImageRequestSigning(new ImageRequestSigningOptions());
 
             services.AddImageSharp()
                     .ClearProviders()

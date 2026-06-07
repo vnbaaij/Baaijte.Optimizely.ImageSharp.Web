@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\..\dependencies.props" />
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<Version>3.0.1</Version>
 		<Author>vnbaaij</Author>
 		<Company>Baaijte</Company>
@@ -32,11 +32,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EPiServer.CMS" Version="12.30.0" />
-		<PackageReference Include="EPiServer.ImageLibrary.ImageSharp" Version="2.0.3" />
-		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.4" />
-		<PackageReference Include="SixLabors.ImageSharp.Web" Version="3.1.2" />
-		<PackageReference Include="SixLabors.ImageSharp.Web.Providers.Azure" Version="3.1.2" />
+		<PackageReference Include="EPiServer.CMS" Version="12.34.2" />
+		<PackageReference Include="EPiServer.ImageLibrary.ImageSharp" Version="2.0.5" />
+		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
+		<PackageReference Include="SixLabors.ImageSharp.Web" Version="3.2.0" />
+		<PackageReference Include="SixLabors.ImageSharp.Web.Providers.Azure" Version="3.2.0" />
 	</ItemGroup>
 
 </Project>
