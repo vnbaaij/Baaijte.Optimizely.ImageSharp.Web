@@ -1,7 +1,14 @@
 ## What's New
 
 ### V3.1.0
-Package now supports optional URL signing for image processing requests.
+**Targeting .NET 10 and Optimizely CMS 12**
+
+Support for URL signing of image processing requests.
+
+Package uses:
+- SixLabors.ImageSharp 3.1.12
+- SixLabors.ImageSharp.Web 3.2.0
+- SixLabors.ImageSharp.Web.Providers.Azure 3.20
 
 ### V3.0.1
 Package now uses:
