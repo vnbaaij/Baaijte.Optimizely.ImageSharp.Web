@@ -170,7 +170,12 @@ namespace Baaijte.Optimizely.ImageSharp.Web
 
             try
             {
-                ServiceLocator.Current.GetInstance<ImageRequestHashService>()?.Sign(target);
+                var imageRequestHashService = ServiceLocator.Current.GetInstance<ImageRequestHashService>();
+
+                if (imageRequestHashService?.IsEnabled == true)
+                {
+                    imageRequestHashService.Sign(target);
+                }
             }
             catch
             {
