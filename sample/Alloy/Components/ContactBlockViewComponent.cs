@@ -1,77 +1,66 @@
-using AlloyTemplates.Helpers;
-using AlloyTemplates.Models.Blocks;
-using AlloyTemplates.Models.Pages;
-using AlloyTemplates.Models.ViewModels;
-using EPiServer;
-using EPiServer.Core;
+using AlloyMVC.Models.Blocks;
+using AlloyMVC.Models.Pages;
+using AlloyMVC.Models.ViewModels;
 using EPiServer.Web;
 using EPiServer.Web.Mvc;
+using EPiServer.Web.Mvc.Html;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AlloyTemplates.Controllers
+namespace AlloyMVC.Components;
+
+public class ContactBlockViewComponent(
+    IContentLoader contentLoader,
+    IPermanentLinkMapper permanentLinkMapper) : BlockComponent<ContactBlock>
 {
-    public class ContactBlockViewComponent : BlockComponent<ContactBlock>
+    protected override IViewComponentResult InvokeComponent(ContactBlock currentContent)
     {
-        private readonly IContentLoader _contentLoader;
-        private readonly IPermanentLinkMapper _permanentLinkMapper;
-
-        public ContactBlockViewComponent(IContentLoader contentLoader, IPermanentLinkMapper permanentLinkMapper)
+        ContactPage contactPage = null;
+        if (!ContentReference.IsNullOrEmpty(currentContent.ContactPageLink))
         {
-            _contentLoader = contentLoader;
-            _permanentLinkMapper = permanentLinkMapper;
+            contactPage = contentLoader.Get<ContactPage>(currentContent.ContactPageLink);
         }
 
-        protected override IViewComponentResult InvokeComponent(ContactBlock currentBlock)
+        var linkUrl = GetLinkUrl(currentContent);
+
+        var model = new ContactBlockModel
         {
-            ContactPage contactPage = null;
-            if (!ContentReference.IsNullOrEmpty(currentBlock.ContactPageLink))
+            Heading = currentContent.Heading,
+            Image = currentContent.Image,
+            ContactPage = contactPage,
+            LinkUrl = GetLinkUrl(currentContent),
+            LinkText = currentContent.LinkText,
+            ShowLink = linkUrl != null
+        };
+
+        // As we're using a separate view model with different property names than the content object
+        // we connect the view models properties with the content objects so that they can be edited.
+        ViewData.GetEditHints<ContactBlockModel, ContactBlock>()
+            .AddConnection(x => x.Heading, x => x.Heading)
+            .AddConnection(x => x.Image, x => x.Image)
+            .AddConnection(x => (object)x.ContactPage, x => x.ContactPageLink)
+            .AddConnection(x => x.LinkText, x => x.LinkText);
+
+        return View(model);
+    }
+
+    private HtmlString GetLinkUrl(ContactBlock contactBlock)
+    {
+        if (contactBlock.LinkUrl != null && !contactBlock.LinkUrl.IsEmpty())
+        {
+            var linkUrl = contactBlock.LinkUrl.ToString();
+
+            // If the url maps to a page on the site we convert it from the internal (permanent, GUID-like) format
+            // to the human readable and pretty public format
+            var linkMap = permanentLinkMapper.Find(new UrlBuilder(linkUrl));
+            if (linkMap != null && !ContentReference.IsNullOrEmpty(linkMap.ContentReference))
             {
-                contactPage = _contentLoader.Get<ContactPage>(currentBlock.ContactPageLink);
+                return new HtmlString(Url.ContentUrl(linkMap.ContentReference));
             }
 
-            var linkUrl = GetLinkUrl(currentBlock);
-
-            var model = new ContactBlockModel
-            {
-                Heading = currentBlock.Heading,
-                Image = currentBlock.Image,
-                ContactPage = contactPage,
-                LinkUrl = GetLinkUrl(currentBlock),
-                LinkText = currentBlock.LinkText,
-                ShowLink = linkUrl != null
-            };
-
-            //As we're using a separate view model with different property names than the content object
-            //we connect the view models properties with the content objects so that they can be edited.
-            ViewData.GetEditHints<ContactBlockModel, ContactBlock>()
-                .AddConnection(x => x.Heading, x => x.Heading)
-                .AddConnection(x => x.Image, x => x.Image)
-                .AddConnection(x => (object)x.ContactPage, x => (object)x.ContactPageLink)
-                .AddConnection(x => x.LinkText, x => x.LinkText);
-
-            return View(model);
+            return new HtmlString(contactBlock.LinkUrl.ToString());
         }
 
-        private IHtmlContent GetLinkUrl(ContactBlock contactBlock)
-        {
-            if (contactBlock.LinkUrl != null && !contactBlock.LinkUrl.IsEmpty())
-            {
-                var linkUrl = contactBlock.LinkUrl.ToString();
-
-                //If the url maps to a page on the site we convert it from the internal (permanent, GUID-like) format
-                //to the human readable and pretty public format
-                var linkMap = _permanentLinkMapper.Find(new UrlBuilder(linkUrl));
-                if (linkMap != null && !ContentReference.IsNullOrEmpty(linkMap.ContentReference))
-                {
-                    return new HtmlString(Url.PageLinkUrl(linkMap.ContentReference));
-                }
-
-                return new HtmlString(contactBlock.LinkUrl.ToString());
-            }
-
-            return null;
-        }
-
+        return null;
     }
 }

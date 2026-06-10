@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{59365865-F74
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Baaijte.Optimizely.ImageSharp.Web", "src\Baaijte.Optimizely.ImageSharp.Web\Baaijte.Optimizely.ImageSharp.Web.csproj", "{C82FC6B0-530B-4505-891C-F1741C17F3FB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlloyMVC", "sample\AlloyMVC\AlloyMVC.csproj", "{6B471BCB-9B38-4C86-9041-E1A5DE17771D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alloy", "sample\Alloy\Alloy.csproj", "{6B471BCB-9B38-4C86-9041-E1A5DE17771D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

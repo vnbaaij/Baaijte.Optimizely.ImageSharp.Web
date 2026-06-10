@@ -1,8 +1,7 @@
 ﻿using System.IO;
+
 using System.Threading.Tasks;
-
-using Microsoft.Extensions.FileProviders;
-
+using EPiServer.Framework.Blobs;
 using SixLabors.ImageSharp.Web;
 using SixLabors.ImageSharp.Web.Resolvers;
 
@@ -13,23 +12,23 @@ namespace Baaijte.Optimizely.ImageSharp.Web.Caching
     /// </summary>
     public class BlobImageCacheResolver : IImageCacheResolver
     {
-        private readonly IFileInfo fileInfo;
+        private readonly Blob blob;
         private readonly ImageCacheMetadata metadata;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BlobImageCacheResolver"/> class.
         /// </summary>
-        /// <param name="fileInfo">The input file info.</param>
+        /// <param name="blob">The blob.</param>
         /// <param name="metadata">The image metadata associated with this file.</param>
-        public BlobImageCacheResolver(IFileInfo fileInfo, in ImageCacheMetadata metadata)
+        public BlobImageCacheResolver(Blob blob, in ImageCacheMetadata metadata)
         {
-            this.fileInfo = fileInfo;
+            this.blob = blob;
             this.metadata = metadata;
         }
 
-        public Task<ImageCacheMetadata> GetMetaDataAsync() => Task.FromResult(this.metadata);
+        public Task<ImageCacheMetadata> GetMetaDataAsync() => Task.FromResult(metadata);
 
         /// <inheritdoc/>
-        public Task<Stream> OpenReadAsync() => Task.FromResult(this.fileInfo.CreateReadStream());
+        public async Task<Stream> OpenReadAsync() => await blob.OpenReadAsync();
     }
 }

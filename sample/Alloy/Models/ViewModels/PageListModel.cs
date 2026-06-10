@@ -1,20 +1,14 @@
-﻿using System.Collections.Generic;
-using EPiServer.Core;
-using AlloyTemplates.Models.Blocks;
+using AlloyMVC.Models.Blocks;
 
-namespace AlloyTemplates.Models.ViewModels
+namespace AlloyMVC.Models.ViewModels;
+
+public class PageListModel(PageListBlock block)
 {
-    public class PageListModel
-    {
-        public PageListModel(PageListBlock block)
-        {
-            Heading = block.Heading;
-            ShowIntroduction = block.IncludeIntroduction;
-            ShowPublishDate = block.IncludePublishDate;
-        }
-        public string Heading { get; set; }
-        public IEnumerable<PageData> Pages { get; set; }
-        public bool ShowIntroduction { get; set; }
-        public bool ShowPublishDate { get; set; }
-    }
+    public string Heading { get; set; } = block.Heading;
+
+    public IEnumerable<PageData> Pages { get; set; }
+
+    public bool ShowIntroduction { get; set; } = block.IncludeIntroduction;
+
+    public bool ShowPublishDate { get; set; } = block.IncludePublishDate;
 }

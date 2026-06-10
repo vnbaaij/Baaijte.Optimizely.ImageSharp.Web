@@ -1,23 +1,24 @@
-﻿@using AlloyTemplates
 @model IPageViewModel<SitePageData>
-@{ Layout = "~/Views/Shared/Layouts/_Root.cshtml"; }
+
+@{
+    Layout = "~/Views/Shared/Layouts/_Root.cshtml";
+}
 
 @{await Html.RenderPartialAsync("Breadcrumbs");}
 
 <div class="row">
-
-    <div class="span8">
+    <div class="col-12 col-md-8 col-lg-9">
         @RenderBody()
     </div>
 
-    <div class="span4">
+    <div class="col-12 col-md-4 col-lg-3 aside">
         @if (IsSectionDefined("RelatedContent"))
         {
             @RenderSection("RelatedContent")
-       }
+        }
         else if (Model.CurrentPage is IHasRelatedContent)
         {
-            @Html.PropertyFor(x => ((IHasRelatedContent)x.CurrentPage).RelatedContentArea, new { CssClass = "row", Tag = Global.ContentAreaTags.OneThirdWidth })
-       }
+            @Html.PropertyFor(x => ((IHasRelatedContent)x.CurrentPage).RelatedContentArea, new { Aside = true })
+        }
     </div>
 </div>

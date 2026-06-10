@@ -1,91 +1,67 @@
-using System.IO;
-
-using AlloyMvcTemplates.Extensions;
-using AlloyMvcTemplates.Infrastructure;
-
+using AlloyMVC.Extensions;
 using Baaijte.Optimizely.ImageSharp.Web;
-
 using EPiServer.Cms.UI.AspNetIdentity;
 using EPiServer.Data;
+using EPiServer.DependencyInjection;
 using EPiServer.Scheduler;
-using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
 
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+namespace AlloyMVC;
 
-namespace EPiServer.Templates.Alloy.Mvc
+public class Startup(IWebHostEnvironment webHostingEnvironment)
 {
-    public class Startup
+    public void ConfigureServices(IServiceCollection services)
     {
-        private readonly IWebHostEnvironment _webHostingEnvironment;
-        private readonly IConfiguration _configuration;
-
-        public Startup(IWebHostEnvironment webHostingEnvironment, IConfiguration configuration)
+        if (webHostingEnvironment.IsDevelopment())
         {
-            _webHostingEnvironment = webHostingEnvironment;
-            _configuration = configuration;
+            AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(webHostingEnvironment.ContentRootPath, "App_Data"));
+
+            services.Configure<SchedulerOptions>(options => options.Enabled = false);
         }
 
-        public void ConfigureServices(IServiceCollection services)
+        services.Configure<DataAccessOptions>(o => o.UpdateDatabaseCompatibilityLevel = true);
+
+        services
+            .AddCmsAspNetIdentity<ApplicationUser>()
+            .AddCms()
+            .AddAlloy()
+            .AddAdminUserRegistration()
+            .AddEmbeddedLocalization<Startup>();
+
+        // Required by Wangkanai.Detection
+        services.AddDetection();
+
+        services.AddBaaijteOptimizelyImageSharp();
+
+        services.AddSession(options =>
         {
-            if (_webHostingEnvironment.IsDevelopment())
-            {
-                services.Configure<SchedulerOptions>(o =>
-                {
-                    o.Enabled = false;
-                });
+            options.IdleTimeout = TimeSpan.FromSeconds(10);
+            options.Cookie.HttpOnly = true;
+            options.Cookie.IsEssential = true;
+        });
+    }
 
-                services.PostConfigure<DataAccessOptions>(o =>
-                {
-                    o.SetConnectionString(_configuration.GetConnectionString("EPiServerDB").Replace("App_Data", Path.GetFullPath("App_Data")));
-                });
-                services.PostConfigure<ApplicationOptions>(o =>
-                {
-                    o.ConnectionStringOptions.ConnectionString = _configuration.GetConnectionString("EPiServerDB").Replace("App_Data", Path.GetFullPath("App_Data"));
-                });
-            }
-
-            services.AddCmsAspNetIdentity<ApplicationUser>();
-            services.AddMvc();
-            services.AddAlloy();
-            services.AddCms();
-
-            services.AddBaaijteOptimizelyImageSharp();
-
-
-            services.AddEmbeddedLocalization<Startup>();
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        // Required by Wangkanai.Detection
+        app.UseDetection();
+        app.UseSession();
+        
+        app.UseBaaijteOptimizelyImageSharp();
+
+        app.UseStaticFiles();
+        app.UseRouting();
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        app.UseEndpoints(endpoints =>
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseMiddleware<AdministratorRegistrationPageMiddleware>();
-            }
-
-            app.UseBaaijteOptimizelyImageSharp();
-
-            app.UseStaticFiles();
-
-
-
-            app.UseRouting();
-            app.UseAuthentication();
-            app.UseAuthorization();
-
-
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapContent();
-                endpoints.MapControllerRoute("Register", "/Register", new { controller = "Register", action = "Index" });
-                endpoints.MapRazorPages();
-            });
-        }
+            endpoints.MapContent();
+        });
     }
 }

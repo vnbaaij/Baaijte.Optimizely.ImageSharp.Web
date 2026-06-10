@@ -1,18 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="..\..\dependencies.props" />
 	<PropertyGroup>
 		<TargetFramework>net10.0</TargetFramework>
 		<Version>3.1.0</Version>
 		<Author>vnbaaij</Author>
 		<Company>Baaijte</Company>
 		<Description>Use SixLabors.ImageSharp.Web in Optimizely</Description>
-		<Copyright>2026</Copyright>
+		<Copyright>Copyright 2026, Vincent Baaij</Copyright>
 		<PackageProjectUrl>https://github.com/vnbaaij/Baaijte.Optimizely.ImageSharp.Web</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/vnbaaij/Baaijte.Optimizely.ImageSharp.Web</RepositoryUrl>
-		<PackageTags>ImageSharp Optimizely Episerver</PackageTags>
-		<PackageId />
+		<PackageTags>Optimizely ImageSharp Blob Cache</PackageTags>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-		<Authors>vnbaaij</Authors>
 		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryType>git</RepositoryType>

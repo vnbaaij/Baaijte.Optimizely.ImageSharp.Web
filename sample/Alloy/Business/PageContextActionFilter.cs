@@ -1,57 +1,45 @@
-using AlloyTemplates.Models.Pages;
-using AlloyTemplates.Models.ViewModels;
+using AlloyMVC.Models.Pages;
+using AlloyMVC.Models.ViewModels;
 using EPiServer.Web.Routing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace AlloyTemplates.Business
+namespace AlloyMVC.Business;
+
+/// <summary>
+/// Intercepts actions with view models of type IPageViewModel and populates the view models
+/// Layout and Section properties.
+/// </summary>
+/// <remarks>
+/// This filter frees controllers for pages from having to care about common context needed by layouts
+/// and other page framework components allowing the controllers to focus on the specifics for the page types
+/// and actions that they handle.
+/// </remarks>
+public class PageContextActionFilter(PageViewContextFactory contextFactory) : IResultFilter
 {
-    /// <summary>
-    /// Intercepts actions with view models of type IPageViewModel and populates the view models
-    /// Layout and Section properties.
-    /// </summary>
-    /// <remarks>
-    /// This filter frees controllers for pages from having to care about common context needed by layouts
-    /// and other page framework components allowing the controllers to focus on the specifics for the page types
-    /// and actions that they handle. 
-    /// </remarks>
-    public class PageContextActionFilter : IResultFilter
+    public void OnResultExecuting(ResultExecutingContext context)
     {
-        private readonly PageViewContextFactory _contextFactory;
-        public PageContextActionFilter(PageViewContextFactory contextFactory)
-        {
-            _contextFactory = contextFactory;
-        }
+        var controller = context.Controller as Controller;
+        var viewModel = controller?.ViewData.Model;
 
-        public void OnResultExecuting(ResultExecutingContext filterContext)
+        if (viewModel is IPageViewModel<SitePageData> model)
         {
-            var controller = filterContext.Controller as Controller;
-            var viewModel = controller?.ViewData.Model;
+            var currentContentLink = context.HttpContext.GetContentLink();
 
-            var model = viewModel as IPageViewModel<SitePageData>;
-            if (model != null)
+            var layoutModel = model.Layout ?? contextFactory.CreateLayoutModel(currentContentLink, context.HttpContext);
+
+            if (context.Controller is IModifyLayout layoutController)
             {
-                var currentContentLink = filterContext.HttpContext.GetContentLink();
-                
-                var layoutModel = model.Layout ?? _contextFactory.CreateLayoutModel(currentContentLink, filterContext.HttpContext);
-                
-                var layoutController = filterContext.Controller as IModifyLayout;
-                if(layoutController != null)
-                {
-                    layoutController.ModifyLayout(layoutModel);
-                }
-                
-                model.Layout = layoutModel;
-
-                if (model.Section == null)
-                {
-                    model.Section = _contextFactory.GetSection(currentContentLink);
-                }
+                layoutController.ModifyLayout(layoutModel);
             }
-        }
 
-        public void OnResultExecuted(ResultExecutedContext filterContext)
-        {
+            model.Layout = layoutModel;
+
+            model.Section ??= contextFactory.GetSection(currentContentLink);
         }
+    }
+
+    public void OnResultExecuted(ResultExecutedContext context)
+    {
     }
 }

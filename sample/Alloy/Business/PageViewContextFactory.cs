@@ -1,84 +1,74 @@
-using System.Linq;
-using AlloyTemplates.Models.Pages;
-using AlloyTemplates.Models.ViewModels;
-using EPiServer;
-using EPiServer.Core;
+using AlloyMVC.Models.Pages;
+using AlloyMVC.Models.ViewModels;
 using EPiServer.Data;
 using EPiServer.ServiceLocation;
-using EPiServer.Web;
 using EPiServer.Web.Routing;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
-namespace AlloyTemplates.Business
+namespace AlloyMVC.Business;
+
+[ServiceConfiguration]
+public class PageViewContextFactory(
+    IContentLoader contentLoader,
+    UrlResolver urlResolver,
+    IDatabaseMode databaseMode,
+    IOptionsMonitor<CookieAuthenticationOptions> optionMonitor)
 {
-    [ServiceConfiguration]
-    public class PageViewContextFactory
+    private readonly CookieAuthenticationOptions _cookieAuthenticationOptions = optionMonitor.Get(IdentityConstants.ApplicationScheme);
+
+    public virtual LayoutModel CreateLayoutModel(ContentReference currentContentLink, HttpContext httpContext)
     {
-        private readonly IContentLoader _contentLoader;
-        private readonly UrlResolver _urlResolver;
-        private readonly IDatabaseMode _databaseMode;
-        private readonly CookieAuthenticationOptions _cookieAuthenticationOptions;
+        var startPageContentLink = ContentReference.StartPage;
 
-        public PageViewContextFactory(IContentLoader contentLoader, UrlResolver urlResolver, IDatabaseMode databaseMode, IOptionsMonitor<CookieAuthenticationOptions> optionMonitor)
+        // Use the content link with version information when editing the startpage,
+        // otherwise the published version will be used when rendering the props below.
+        if (currentContentLink.CompareToIgnoreWorkID(startPageContentLink))
         {
-            _contentLoader = contentLoader;
-            _urlResolver = urlResolver;
-            _databaseMode = databaseMode;
-            _cookieAuthenticationOptions = optionMonitor.Get(IdentityConstants.ApplicationScheme);
+            startPageContentLink = currentContentLink;
         }
 
-        public virtual LayoutModel CreateLayoutModel(ContentReference currentContentLink, HttpContext httpContext)
+        var startPage = contentLoader.Get<StartPage>(startPageContentLink);
+
+        return new LayoutModel
         {
-            var startPageContentLink = SiteDefinition.Current.StartPage;
+            Logotype = startPage.SiteLogotype,
+            LogotypeLinkUrl = new HtmlString(urlResolver.GetUrl(ContentReference.StartPage)),
+            ProductPages = startPage.ProductPageLinks,
+            CompanyInformationPages = startPage.CompanyInformationPageLinks,
+            NewsPages = startPage.NewsPageLinks,
+            CustomerZonePages = startPage.CustomerZonePageLinks,
+            LoggedIn = httpContext.User.Identity.IsAuthenticated,
+            LoginUrl = new HtmlString(GetLoginUrl(currentContentLink)),
+            SearchActionUrl = new HtmlString(UrlResolver.Current.GetUrl(startPage.SearchPageLink)),
+            IsInReadonlyMode = databaseMode.DatabaseMode == DatabaseMode.ReadOnly
+        };
+    }
 
-            // Use the content link with version information when editing the startpage,
-            // otherwise the published version will be used when rendering the props below.
-            if (currentContentLink.CompareToIgnoreWorkID(startPageContentLink))
-            {
-                startPageContentLink = currentContentLink;
-            }
+    private string GetLoginUrl(ContentReference returnToContentLink)
+    {
+        return $"{_cookieAuthenticationOptions?.LoginPath.Value ?? Globals.LoginPath}?ReturnUrl={urlResolver.GetUrl(returnToContentLink)}";
+    }
 
-            var startPage = _contentLoader.Get<StartPage>(startPageContentLink);
+    public virtual IContent GetSection(ContentReference contentLink)
+    {
+        var currentContent = contentLoader.Get<IContent>(contentLink);
 
-            return new LayoutModel
-            {
-                Logotype = startPage.SiteLogotype,
-                LogotypeLinkUrl = new HtmlString(_urlResolver.GetUrl(SiteDefinition.Current.StartPage)),
-                ProductPages = startPage.ProductPageLinks,
-                CompanyInformationPages = startPage.CompanyInformationPageLinks,
-                NewsPages = startPage.NewsPageLinks,
-                CustomerZonePages = startPage.CustomerZonePageLinks,
-                LoggedIn = httpContext.User.Identity.IsAuthenticated,
-                LoginUrl = new HtmlString(GetLoginUrl(currentContentLink)),
-                SearchActionUrl = new HtmlString(EPiServer.Web.Routing.UrlResolver.Current.GetUrl(startPage.SearchPageLink)),
-                IsInReadonlyMode = _databaseMode.DatabaseMode == DatabaseMode.ReadOnly
-            };
+        static bool isSectionRoot(ContentReference contentReference) =>
+           ContentReference.IsNullOrEmpty(contentReference) ||
+           contentReference.Equals(ContentReference.StartPage) ||
+           contentReference.Equals(ContentReference.RootPage);
+
+        if (isSectionRoot(currentContent.ParentLink))
+        {
+            return currentContent;
         }
 
-        private string GetLoginUrl(ContentReference returnToContentLink)
-        {
-            return string.Format(
-                "{0}?ReturnUrl={1}",
-                _cookieAuthenticationOptions?.LoginPath.Value ?? Global.LoginPath,
-                _urlResolver.GetUrl(returnToContentLink));
-        }
-
-        public virtual IContent GetSection(ContentReference contentLink)
-        {
-            var currentContent = _contentLoader.Get<IContent>(contentLink);
-            if (currentContent.ParentLink != null && currentContent.ParentLink.CompareToIgnoreWorkID(SiteDefinition.Current.StartPage))
-            {
-                return currentContent;
-            }
-
-            return _contentLoader.GetAncestors(contentLink)
-                .OfType<PageData>()
-                .SkipWhile(x => x.ParentLink == null || !x.ParentLink.CompareToIgnoreWorkID(SiteDefinition.Current.StartPage))
-                .FirstOrDefault();
-        }
+        return contentLoader.GetAncestors(contentLink)
+            .OfType<PageData>()
+            .SkipWhile(x => !isSectionRoot(x.ParentLink))
+            .FirstOrDefault();
     }
 }

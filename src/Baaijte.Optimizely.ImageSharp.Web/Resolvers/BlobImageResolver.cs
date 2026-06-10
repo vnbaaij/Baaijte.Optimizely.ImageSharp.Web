@@ -27,13 +27,13 @@ namespace Baaijte.Optimizely.ImageSharp.Web.Resolvers
         public async Task<ImageMetadata> GetMetaDataAsync()
         {
             DateTimeOffset lastModified = media.Saved;
-            IFileInfo fileInfo = await media.BinaryData.AsFileInfoAsync(lastModified);
+            IFileInfo fileInfo = await media.BinaryData.AsFileInfoAsync(lastModified, false);
 
             return new(lastModified.UtcDateTime, fileInfo.Length);
         }
 
         /// <inheritdoc/>
-        public Task<Stream> OpenReadAsync() => Task.FromResult(media.BinaryData.OpenRead());
+        public async Task<Stream> OpenReadAsync() => await media.BinaryData.OpenReadAsync();
 
     }
 }

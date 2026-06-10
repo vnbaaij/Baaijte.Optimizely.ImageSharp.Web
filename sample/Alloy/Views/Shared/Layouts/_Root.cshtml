@@ -1,7 +1,7 @@
-
 @using EPiServer.Framework.Web.Mvc.Html
-@using AlloyTemplates.Business
+
 @model IPageViewModel<SitePageData>
+
 <!DOCTYPE html>
 <html lang="@(Model.CurrentPage.Language)">
 <head>
@@ -17,33 +17,39 @@
     {
         <meta name="description" content="@Model.CurrentPage.MetaDescription" />
     }
-    <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")" type="image/x-icon" />
     @Html.CanonicalLink()
     @Html.AlternateLinks()
-    <link rel="stylesheet" href="~/css/css.min.css" />
-    @Html.RequiredClientResources("Header") @*Enable components to require resources. For an example, see the view for VideoBlock.*@
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/style.min.css" />
+    <link rel="stylesheet" href="~/css/theme.min.css" />
+    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
+    <required-client-resources area="Header" />
 </head>
 
-    <body>
-        @if (Model.Layout.IsInReadonlyMode)
-        {
-            await Html.RenderPartialAsync("Readonly", Model);
-        }
+<body>
+    @if (Model.Layout.IsInReadonlyMode)
+    {
+        await Html.RenderPartialAsync("Readonly", Model);
+    }
 
-        @await Html.RenderEPiServerQuickNavigatorAsync()
-        @Html.FullRefreshPropertiesMetaData()
-        <div class="container">
-            @if(!Model.Layout.HideHeader)
-            {
-                await Html.RenderPartialAsync("Header", Model);
-            }
-            @RenderBody()
-            @if(!Model.Layout.HideFooter)
-            {
-                await Html.RenderPartialAsync("Footer", Model);
-            }
-        </div>
-        @Html.RequiredClientResources("Footer")
-        <script src="~/js/script.min.js"></script>
-    </body>
+    @await Html.RenderEPiServerQuickNavigatorAsync()
+
+    @Html.FullRefreshPropertiesMetaData()
+
+    @if (!Model.Layout.HideHeader)
+    {
+        await Html.RenderPartialAsync("Header", Model);
+    }
+
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    @if (!Model.Layout.HideFooter)
+    {
+        await Html.RenderPartialAsync("Footer", Model);
+    }
+    <required-client-resources area="Footer" />
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

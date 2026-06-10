@@ -1,27 +1,23 @@
-﻿using System.Collections.Generic;
-using EPiServer.Core;
-using AlloyTemplates.Models.Pages;
+using AlloyMVC.Models.Pages;
 
-namespace AlloyTemplates.Models.ViewModels
+namespace AlloyMVC.Models.ViewModels;
+
+public class PreviewModel(
+    SitePageData currentPage,
+    IContent previewContent) : PageViewModel<SitePageData>(currentPage)
 {
-    public class PreviewModel : PageViewModel<SitePageData>
+    public IContent PreviewContent { get; set; } = previewContent;
+
+    public List<PreviewArea> Areas { get; set; } = [];
+
+    public class PreviewArea
     {
-        public PreviewModel(SitePageData currentPage, IContent previewContent)
-            : base(currentPage)
-        {
-            PreviewContent = previewContent;
-            Areas = new List<PreviewArea>();
-        }
+        public bool Supported { get; set; }
 
-        public IContent PreviewContent { get; set; }
-        public List<PreviewArea> Areas { get; set; } 
+        public string AreaName { get; set; }
 
-        public class PreviewArea
-        {
-            public bool Supported { get; set; }
-            public string AreaName { get; set; }
-            public string AreaTag { get; set; }
-            public ContentArea ContentArea { get; set; }
-        }
+        public string AreaTag { get; set; }
+
+        public ContentArea ContentArea { get; set; }
     }
 }

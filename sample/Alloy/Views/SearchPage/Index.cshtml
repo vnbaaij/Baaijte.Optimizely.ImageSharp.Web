@@ -1,5 +1,3 @@
-@using EPiServer.Editor
-@using EPiServer.Security
 @model SearchContentModel
 
 @{
@@ -8,9 +6,6 @@
 
 <div class="row">
     <div class="span8,search-form">
-        @*We use GET to submit the form to enable bookmarking etc of search results.  However, as GET will remove other
-            query string values not in the form we can't use that in edit mode.*@
-
         @{
             using (Html.BeginForm(null, null, Html.ViewContext.IsInEditMode() ? FormMethod.Post : FormMethod.Get, new { @action = Model.Layout.SearchActionUrl }))
             {

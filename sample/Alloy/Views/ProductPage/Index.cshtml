@@ -1,29 +1,34 @@
-﻿@using AlloyTemplates
 @using Baaijte.Optimizely.ImageSharp.Web
-
-@model PageViewModel<ProductPage>
+@inherits AlloyMVC.Views.AlloyPageBase<PageViewModel<ProductPage>>
 
 @{ Layout = "~/Views/Shared/Layouts/_TwoPlusOne.cshtml"; }
 
-<h1 @Html.EditAttributes(x => x.CurrentPage.PageName)>@Model.CurrentPage.PageName</h1>
-<p class="introduction" @Html.EditAttributes(x => x.CurrentPage.MetaDescription)>@Model.CurrentPage.MetaDescription</p>
-<div class="row">
-    <div class="span8 clearfix" @Html.EditAttributes(x => x.CurrentPage.MainBody)>
-        @Html.DisplayFor(m => m.CurrentPage.MainBody)
-    </div>
+<div class="content">
+    <h1 epi-property="@Model.CurrentPage.Name">
+        @Model.CurrentPage.Name
+    </h1>
+    <p class="lead" epi-property="@Model.CurrentPage.MetaDescription">@Model.CurrentPage.MetaDescription</p>
+    <div class="clearfix" epi-property="@Model.CurrentPage.MainBody" />
 </div>
-@Html.PropertyFor(x => x.CurrentPage.MainContentArea, new { CssClass = "row", Tag = Global.ContentAreaTags.TwoThirdsWidth })
+
+<div epi-property="@Model.CurrentPage.MainContentArea" class="row">
+    <div epi-property-item class="block" epi-on-item-rendered="OnItemRendered" />
+</div>
 
 @section RelatedContent
 {
-    <div @Html.EditAttributes(x => x.CurrentPage.PageImage)>
+    <div epi-property="@Model.CurrentPage.PageImage">
         <img src="@Html.ProcessImage(Model.CurrentPage.PageImage).Width(125)"/>
     </div>
 
     <div class="block colorBox @string.Join(" ", @Model.CurrentPage.GetThemeCssClassNames())">
-        <h2 @Html.EditAttributes(x => x.CurrentPage.PageName)>@Model.CurrentPage.PageName</h2>
-        @Html.PropertyFor(x => x.CurrentPage.UniqueSellingPoints)
+        <h2>@Model.CurrentPage.Name</h2>
+        <div epi-property="@Model.CurrentPage.UniqueSellingPoints" />
     </div>
 
-    @Html.PropertyFor(x => x.CurrentPage.RelatedContentArea, new { CssClass = "row", Tag = Global.ContentAreaTags.OneThirdWidth })
+    @{ ViewData["Aside"] = true; }
+
+    <div epi-property="@Model.CurrentPage.RelatedContentArea">
+        <div epi-property-item class="block" epi-on-item-rendered="OnItemRendered" />
+    </div>
 }

@@ -1,4 +1,7 @@
-﻿@using AlloyTemplates
-@model PageViewModel<AlloyTemplates.Models.Pages.StartPage>
+@inherits AlloyMVC.Views.AlloyPageBase<PageViewModel<AlloyMVC.Models.Pages.StartPage>>
 
-@Html.PropertyFor(x => x.CurrentPage.MainContentArea, new { CssClass = "row equal-height", tag = Global.ContentAreaTags.FullWidth })
+<div class="start">
+    <div epi-property="@Model.CurrentPage.MainContentArea" class="row">
+        <div epi-property-item class="block" epi-on-item-rendered="OnItemRendered" />
+    </div>
+</div>

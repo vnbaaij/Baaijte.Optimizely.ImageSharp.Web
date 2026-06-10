@@ -33,11 +33,6 @@ namespace Baaijte.Optimizely.ImageSharp.Web.Caching
         private readonly int cacheHashLength;
 
         /// <summary>
-        /// The file provider abstraction.
-        /// </summary>
-        //private readonly IFileProvider fileProvider;
-
-        /// <summary>
         /// The cache configuration options.
         /// </summary>
         private readonly BlobImageCacheOptions cacheOptions;
@@ -86,24 +81,23 @@ namespace Baaijte.Optimizely.ImageSharp.Web.Caching
 
             Blob blob = blobFactory.GetBlob(uri);
 
-            IFileInfo metaFileInfo = await blob.AsFileInfoAsync();
-
-            if (!metaFileInfo.Exists)
-                return null;
-
-            ImageCacheMetadata metadata = await ImageCacheMetadata.ReadAsync(blob.OpenRead());
-
-            uri = new($"{fileId}{ToImageExtension(metadata)}");
-            blob = blobFactory.GetBlob(uri);
-            IFileInfo fileInfo = await blob.AsFileInfoAsync();
-
-            // Check to see if the file exists.
-            if (!fileInfo.Exists)
+            if (!await blob.ExistsAsync())
             {
                 return null;
             }
 
-            return new BlobImageCacheResolver(fileInfo, metadata);
+            ImageCacheMetadata metadata = await ImageCacheMetadata.ReadAsync(await blob.OpenReadAsync());
+
+            uri = new($"{fileId}{ToImageExtension(metadata)}");
+            blob = blobFactory.GetBlob(uri);
+
+            // Check to see if the file exists.
+            if (!await blob.ExistsAsync())
+            {
+                return null;
+            }
+
+            return new BlobImageCacheResolver(blob, metadata);
         }
 
         /// <inheritdoc/>
@@ -115,10 +109,10 @@ namespace Baaijte.Optimizely.ImageSharp.Web.Caching
             string metafile = $"{name}.meta";
 
             FileBlob blob = CreateBlob(imagefile);
-            blob.Write(stream);
+            await blob.WriteAsync(stream);
 
             blob = CreateBlob(metafile);
-            await metadata.WriteAsync(blob.OpenWrite());
+            await metadata.WriteAsync(await blob.OpenWriteAsync());
         }
 
         private FileBlob CreateBlob(string file)
