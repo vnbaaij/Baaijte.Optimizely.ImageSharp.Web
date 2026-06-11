@@ -266,3 +266,11 @@ ServiceFabricBackup/
 /sample/Alloy/App_Data/blobs/*
 /build
 /sample/Alloy/App_Data
+/sample/Alloy/modules/_protected/*
+/src/Baaijte.Optimizely.ImageSharp.Web/modules/_protected/*
+/src/Baaijte.Optimizely.ImageSharp.Web/modules/_protected/CMS/CMS.zip
+/src/Baaijte.Optimizely.ImageSharp.Web/modules/_protected/EPiServer.Cms.TinyMce/EPiServer.Cms.TinyMce.zip
+/src/Baaijte.Optimizely.ImageSharp.Web/modules/_protected/EPiServer.Cms.UI.Admin/EPiServer.Cms.UI.Admin.zip
+/src/Baaijte.Optimizely.ImageSharp.Web/modules/_protected/EPiServer.Cms.UI.Settings/EPiServer.Cms.UI.Settings.zip
+/src/Baaijte.Optimizely.ImageSharp.Web/modules/_protected/EPiServer.Cms.UI.VisitorGroups/EPiServer.Cms.UI.VisitorGroups.zip
+/src/Baaijte.Optimizely.ImageSharp.Web/modules/_protected/Shell/Shell.zip
