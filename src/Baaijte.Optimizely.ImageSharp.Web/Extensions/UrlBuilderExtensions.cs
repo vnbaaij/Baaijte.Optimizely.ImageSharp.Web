@@ -1,8 +1,11 @@
 ﻿using System;
 
 using EPiServer;
+using EPiServer.ServiceLocation;
 
 using SixLabors.ImageSharp.Processing;
+
+using Baaijte.Optimizely.ImageSharp.Web.Services;
 
 namespace Baaijte.Optimizely.ImageSharp.Web
 {
@@ -22,7 +25,7 @@ namespace Baaijte.Optimizely.ImageSharp.Web
             if (!target.IsEmpty)
                 target.QueryCollection.Add("bgcolor", color.ToLowerInvariant());
 
-            return target;
+            return target.Sign();
         }
 
         /// <summary>
@@ -43,7 +46,7 @@ namespace Baaijte.Optimizely.ImageSharp.Web
             if (!target.IsEmpty)
                 target.QueryCollection.Add("bgcolor", string.Join(",", r.ToString(), g.ToString(), b.ToString(), a.ToString()));
 
-            return target;
+            return target.Sign();
         }
 
 
@@ -62,7 +65,7 @@ namespace Baaijte.Optimizely.ImageSharp.Web
             if (!target.IsEmpty)
                 target.QueryCollection.Add("format", format.ToString().ToLowerInvariant());
 
-            return target;
+            return target.Sign();
         }
 
         /// <summary>
@@ -84,7 +87,7 @@ namespace Baaijte.Optimizely.ImageSharp.Web
                 target.QueryCollection.Add("quality", quality.ToString());
             }
 
-            return target;
+            return target.Sign();
         }
 
         /// <summary>
@@ -123,7 +126,7 @@ namespace Baaijte.Optimizely.ImageSharp.Web
                 if (!compand)
                     target.QueryCollection.Add("compand", "true");
             }
-            return target;
+            return target.Sign();
         }
 
         /// <summary>
@@ -140,7 +143,7 @@ namespace Baaijte.Optimizely.ImageSharp.Web
             if (!target.IsEmpty)
                 target.QueryCollection.Add("width", width.ToString());
 
-            return target;
+            return target.Sign();
         }
 
         /// <summary>
@@ -156,6 +159,28 @@ namespace Baaijte.Optimizely.ImageSharp.Web
 
             if (!target.IsEmpty)
                 target.QueryCollection.Add("height", height.ToString());
+
+            return target.Sign();
+        }
+
+        public static UrlBuilder Sign(this UrlBuilder target)
+        {
+            if (target == null)
+                throw new ArgumentNullException(nameof(target));
+
+            try
+            {
+                var imageRequestHashService = ServiceLocator.Current.GetInstance<ImageRequestHashService>();
+
+                if (imageRequestHashService?.IsEnabled == true)
+                {
+                    imageRequestHashService.Sign(target);
+                }
+            }
+            catch
+            {
+                return target;
+            }
 
             return target;
         }

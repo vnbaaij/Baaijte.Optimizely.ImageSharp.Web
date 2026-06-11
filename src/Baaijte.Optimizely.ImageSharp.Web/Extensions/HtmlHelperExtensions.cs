@@ -42,7 +42,7 @@ namespace Baaijte.Optimizely.ImageSharp.Web
         {
             var builder = new UrlBuilder(url);
 
-            return builder;
+            return builder.Sign();
         }
     }
 }
