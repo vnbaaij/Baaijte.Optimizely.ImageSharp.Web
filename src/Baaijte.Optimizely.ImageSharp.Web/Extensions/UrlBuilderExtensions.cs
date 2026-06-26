@@ -1,7 +1,8 @@
 ﻿using System;
 
 using EPiServer;
-
+using EPiServer.ServiceLocation;
+using Microsoft.AspNetCore.Http;
 using SixLabors.ImageSharp.Processing;
 
 namespace Baaijte.Optimizely.ImageSharp.Web
@@ -60,7 +61,32 @@ namespace Baaijte.Optimizely.ImageSharp.Web
                 throw new ArgumentNullException(nameof(target));
 
             if (!target.IsEmpty)
-                target.QueryCollection.Add("format", format.ToString().ToLowerInvariant());
+                target.QueryCollection.Set("format", format.ToString().ToLowerInvariant());
+
+            return target;
+        }
+
+        /// <summary>
+        /// Sets the output format to WebP if the browser accepts it.
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static UrlBuilder FormatWebPIfAccepted(this UrlBuilder target)
+        {
+            if (target == null)
+            {
+                throw new ArgumentNullException("target");
+            }
+            if (!target.IsEmpty)
+            {
+                var context = ServiceLocator.Current.GetInstance<IHttpContextAccessor>();
+                context.HttpContext.Request.Headers.TryGetValue("Accept", out var acceptHeader);
+                if (acceptHeader.ToString().Contains("image/webp"))
+                {
+                    target.QueryCollection.Set("format", ImageFormat.WebP.ToString().ToLowerInvariant());
+                }
+            }
 
             return target;
         }
