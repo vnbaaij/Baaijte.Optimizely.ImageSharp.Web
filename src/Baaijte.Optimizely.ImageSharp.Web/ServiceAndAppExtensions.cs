@@ -45,21 +45,30 @@ namespace Baaijte.Optimizely.ImageSharp.Web
 
         public static void UseBaaijteOptimizelyImageSharp(this IApplicationBuilder app)
         {
-            app.UseWhen(ManagedImageRequestMatcher.IsManagedImageRequest, branch =>
+            var serviceProviderIsService = app.ApplicationServices.GetService<IServiceProviderIsService>();
+            
+            var hasImageRequestSigning = 
+                serviceProviderIsService?.IsService(typeof(ImageRequestHashService)) == true;
+
+            if (hasImageRequestSigning)
             {
-                branch.Use(async (context, next) =>
+                app.UseWhen(ManagedImageRequestMatcher.IsManagedImageRequest, branch =>
                 {
-                    var imageRequestHashService = context.RequestServices.GetRequiredService<ImageRequestHashService>();
-
-                    if (!imageRequestHashService.IsAuthorized(context.Request))
+                    branch.Use(async (context, next) =>
                     {
-                        context.Response.StatusCode = StatusCodes.Status403Forbidden;
-                        return;
-                    }
+                        var imageRequestHashService =
+                            context.RequestServices.GetRequiredService<ImageRequestHashService>();
 
-                    await next();
+                        if (!imageRequestHashService.IsAuthorized(context.Request))
+                        {
+                            context.Response.StatusCode = StatusCodes.Status403Forbidden;
+                            return;
+                        }
+
+                        await next();
+                    });
                 });
-            });
+            }
 
             app.UseImageSharp();
         }
