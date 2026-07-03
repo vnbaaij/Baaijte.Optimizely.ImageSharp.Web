@@ -1,5 +1,8 @@
 ## What's New
 
+### V3.1.1
+Fix that v3.1.0 had a breaking change.
+
 ### V3.1.0
 **Targeting .NET 10 and Optimizely CMS 12**
 
